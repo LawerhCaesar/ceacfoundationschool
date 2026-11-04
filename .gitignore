@@ -1,0 +1,84 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Testing
+coverage/
+*.test.ts.snap
+
+# Production build
+dist/
+dist.zip
+build/
+*.local.zip
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editor directories and files
+.vscode/
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.swp
+*~
+
+# Package manager locks (keep npm only)
+yarn.lock
+pnpm-lock.yaml
+bun.lockb
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# OS files
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Development notes and migration files
+*-COMPLETE.md
+*-FIXES.md
+*-MIGRATION*.md
+*-NOTES.md
+COMMIT_MESSAGE.txt
+
+# Video files (too large for git)
+public/videos/*.mp4
+public/videos/*.webm
+public/videos/*.mov
+public/videos/*.avi
+
+# Build artifacts
+*.tsbuildinfo
+.turbo/
+
+# Supabase
+.supabase/
+
+# Hosting metadata and generated Vite configs
+.vercel/
+vite.config.*.timestamp-*.mjs
+
+# Source assessment documents and asset archives
+/2026 1Q EXAMINATION.pdf
+/LWFS MARKING SCHEME 1Q 2026.pdf
+/public/favicon.zip

@@ -1,0 +1,51 @@
+# .htaccess for CEAC Foundation School Portal (Apache/Namecheap)
+
+# Enable rewrite engine
+RewriteEngine On
+
+# OPTIONAL: Force HTTPS (uncomment if you want to enforce HTTPS)
+#RewriteCond %{HTTPS} !=on
+#RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# SPA fallback for React/Vite (serve index.html for non-file routes)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.html [L]
+
+# Handle CORS preflight quickly (optional)
+RewriteCond %{REQUEST_METHOD} OPTIONS
+RewriteRule ^ - [R=204,L]
+
+# MIME types for video
+AddType video/mp4 .mp4
+AddType video/webm .webm
+AddType video/ogg .ogv
+
+# Caching for videos (1 year)
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType video/mp4 "access plus 1 year"
+  ExpiresByType video/webm "access plus 1 year"
+  ExpiresByType video/ogg "access plus 1 year"
+</IfModule>
+
+# Video headers (CORS, range requests, security)
+<IfModule mod_headers.c>
+  <FilesMatch "\.(mp4|webm|ogv)$">
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Methods "GET, HEAD, OPTIONS"
+    Header set Access-Control-Allow-Headers "Range, Origin, Content-Type, Accept"
+    Header set Access-Control-Expose-Headers "Content-Length, Content-Range"
+    Header set Accept-Ranges "bytes"
+    Header set Cache-Control "public, max-age=31536000, immutable"
+    Header set X-Content-Type-Options "nosniff"
+  </FilesMatch>
+
+  # Static assets (optional hard cache)
+  <FilesMatch "\.(js|css|svg|png|jpg|jpeg|gif|woff2?)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>
+
+# Prevent directory listings
+Options -Indexes
