@@ -1,5 +1,24 @@
 # Database Migration System
 
+## Portal schema repair
+
+`20261105072325_restore_portal_schema_gaps.sql` adds the optional
+`users.primary_teacher_id` reference and `app_settings` for the exam lock.
+Run this focused migration, not a base schema/reset script, against an existing
+portal database. It preserves accounts, enrollments, exam results and an existing
+lock choice. Existing students start with no default teacher; enrollment-level
+teacher assignments are not copied or changed.
+
+The settings table enables RLS. Signed-in users can read `exam_locked`; writes
+require the caller's existing `users.role` to be `admin`. Anonymous access is
+denied. This repair does not change the existing users-table authorization or
+role-protection policies, which require a separate security review.
+
+After applying it, run `database/verify-portal-schema-gaps.sql` in SQL Editor.
+Refresh the portal; no frontend rebuild is required for these schema additions.
+The migration was tested on PostgreSQL 17 for student/admin permissions,
+anonymous denial, admin upsert, teacher deletion and rerun safety.
+
 This directory contains SQL migration files for the CEAC Foundation School Portal database.
 
 ## Migration Naming Convention
