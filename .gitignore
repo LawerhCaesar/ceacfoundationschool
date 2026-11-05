@@ -82,3 +82,6 @@ vite.config.*.timestamp-*.mjs
 /2026 1Q EXAMINATION.pdf
 /LWFS MARKING SCHEME 1Q 2026.pdf
 /public/favicon.zip
+
+# Authentication recovery files
+*-recovery-codes-*.txt
