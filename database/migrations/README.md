@@ -19,6 +19,13 @@ Refresh the portal; no frontend rebuild is required for these schema additions.
 The migration was tested on PostgreSQL 17 for student/admin permissions,
 anonymous denial, admin upsert, teacher deletion and rerun safety.
 
+Applied to the CEAC production database on 2026-11-05. Live checks confirmed
+the nullable UUID column, `ON DELETE SET NULL` foreign key, enabled settings RLS,
+three settings policies and `exam_locked = 'true'`. A transaction using existing
+admin/student identities verified admin upsert, student read and denial of student
+update/upsert; all test writes were rolled back. Anonymous API access to settings
+was denied, and the API recognized the new users column.
+
 This directory contains SQL migration files for the CEAC Foundation School Portal database.
 
 ## Migration Naming Convention

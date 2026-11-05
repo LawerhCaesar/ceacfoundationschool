@@ -69,7 +69,7 @@ Official deployment reference: [Vite on Vercel](https://vercel.com/docs/framewor
 
 ## Database setup and launch review
 
-This repository contains historical SQL snapshots, dated migrations and standalone repair/reset scripts. They are not a verified, ordered bootstrap for a fresh database. Compare them with the existing Supabase schema before applying anything. The base schema scripts contain destructive operations. In particular, code references `primary_teacher_id` and `church_oversight`, whose creation is not included in the checked-in SQL, and newer exam fields require `exam-migration.sql`.
+This repository contains historical SQL snapshots, dated migrations and standalone repair/reset scripts. They are not a verified, ordered bootstrap for a fresh database. Compare them with the existing Supabase schema before applying anything. The base schema scripts contain destructive operations. `database/migrations/20261105072325_restore_portal_schema_gaps.sql` adds the optional `users.primary_teacher_id` reference and the exam-lock settings table without resetting existing records. `church_oversight` is present in the live database but its creation is not included in the historical SQL; newer exam fields are described in `exam-migration.sql`.
 
 Source review identified the following launch priorities. These describe checked-in code and SQL; the live database has not been audited:
 
